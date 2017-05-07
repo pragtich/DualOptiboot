@@ -541,12 +541,12 @@ void CheckFlashImage() {
 
   //SPI INIT
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega88) || defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__)
-  DDRB |= _BV(FLASHSS) | _BV(SS) | _BV(PB3) | _BV(PB5); //OUTPUTS for FLASH_SS and SS, MOSI, SCK
+  DDRB |= _BV(FLASHSS) | _BV(SS) | _BV(PORTB3) | _BV(PORTB5); //OUTPUTS for FLASH_SS and SS, MOSI, SCK
   FLASH_UNSELECT; //unselect FLASH chip
   PORTB |= _BV(SS); //set SS HIGH
 #elif defined (__AVR_ATmega1284P__) || defined (__AVR_ATmega644P__)
   DDRC |= _BV(FLASHSS); //OUTPUT for FLASH_SS
-  DDRB |= _BV(SS) | _BV(PB5) | _BV(PB7); //OUTPUTS for SS, MOSI, SCK
+  DDRB |= _BV(SS) | _BV(PORTB5) | _BV(PORTB7); //OUTPUTS for SS, MOSI, SCK
   FLASH_UNSELECT; //unselect FLASH chip
   PORTB |= _BV(SS); //set SS HIGH
 #endif
