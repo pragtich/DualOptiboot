@@ -1,0 +1,11 @@
+
+This version adds support for I2C EEPROM as an alternative to original SPI flash.
+Code assumes AVR HW twi (I2C). Arduino Uno uses pins A4 (SDA), A5 (SCL).
+
+Most 24(L)C256 or 512 EEPROMs should work as is.
+
+To exclude SPI flash code and use I2C EEPROM uncomment USE_I2C_EEPROM in optiboot.c
+and recompile the bootloader. Until the code is optimized (?), it won't fit on 1kB
+boot block as does the SPI version. So to use this make sure your fuses are set to
+the maximum boot block size of 2kB (1024W).
+

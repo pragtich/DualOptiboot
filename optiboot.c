@@ -32,6 +32,16 @@
 // and copyright notices in any redistribution of this code
 //
 //////////////////////////////////////////////////////////////////////////
+// This is an updated version adding support for an I2C EEPROM.
+// Uncomment USE_I2C_EEPROM to use I2C instead of SPI flash. Supported
+// chips are 32 and 64kB EEPROMs with 16-bit addressing such as 24(L)C256
+// or 24(L)C512. AVR HW I2C is assumed and default address of 0xA0
+// (see I2C_EEPROM_ADDR). Error handling is minimized to save space.
+// UART init was also modified to make debug work better.
+//
+// Copyright (C) 2016 Krister W. <kisse66@hobbylabs.org>
+//
+//////////////////////////////////////////////////////////////////////////
 //
 // This Optiboot version is modified to add the capability of reflashing 
 // from an external SPI flash memory chip. As configured this will work 
@@ -263,7 +273,7 @@
 asm("  .section .version\n"
     "optiboot_version:  .word " MAKEVER(OPTIBOOT_MAJVER, OPTIBOOT_MINVER) "\n"
     "  .section .text\n");
-
+
 #include <inttypes.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
@@ -285,6 +295,9 @@ asm("  .section .version\n"
 #ifdef LUDICROUS_SPEED
 #define BAUD_RATE 230400L
 #endif
+
+// uncomment to use I2C EEPROM instead of the SPI flash
+#define USE_I2C_EEPROM
 
 /* set the UART baud rate defaults */
 #ifndef BAUD_RATE
@@ -462,6 +475,14 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked));
 # define UART_UDR UDR3
 #endif
 
+#define DEBUG_ON    // uncomment to enable Serial debugging
+// (will output different characters depending on which path the bootloader takes)
+
+#ifdef USE_I2C_EEPROM
+#include <util/twi.h>
+#endif
+
+#ifndef USE_I2C_EEPROM
 /******************* SPI FLASH Code **********************************/
 // This code will handle the reading/erasing the external SPI FLASH memory
 // assumed to have the SPI_CS on D8 on Moteino (Atmega328P)
@@ -493,8 +514,6 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked));
 #define SPIFLASH_BLOCKERASE_32K   0x52        // erase one 32K block of flash memory
 #define SPIFLASH_BLOCKERASE_64K   0xD8        // erase one 32K block of flash memory
 #define SPIFLASH_JEDECID          0x9F        // read JEDEC ID
-//#define DEBUG_ON                            // uncomment to enable Serial debugging 
-                                              // (will output different characters depending on which path the bootloader takes)
 
 uint8_t SPI_transfer(uint8_t _data) {
   SPDR = _data;
@@ -532,12 +551,25 @@ uint8_t FLASH_readByte(uint32_t addr) {
   FLASH_UNSELECT;
   return result;
 }
+#else  // USE_I2C_EEPROM
+#define I2C_EEPROM_ADDR	0xA0  // default
+#include "i2c.h"  // EEPROM routines are here
+#endif	// USE_I2C_EEPROM
+
 
 void CheckFlashImage() {
 #ifdef DEBUG_ON
   putch('F');
 #endif
   watchdogConfig(WATCHDOG_OFF);
+
+
+#ifdef USE_I2C_EEPROM
+  EEPROM_init();
+#ifdef DEBUG_ON
+  putch('2');	// using I2C instead of SPI
+#endif
+#else	// USE_I2C_EPPROM
 
   //SPI INIT
 #if defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__) || defined(__AVR_ATmega88) || defined(__AVR_ATmega8__) || defined(__AVR_ATmega88__)
@@ -570,6 +602,7 @@ void CheckFlashImage() {
   FLASH_command(SPIFLASH_STATUSWRITE, 1);
   SPI_transfer(0);
   FLASH_UNSELECT;
+#endif // USE_I2C_EPPROM
   
   //check if any flash image exists on external FLASH chip
   if (FLASH_readByte(0)=='F' && FLASH_readByte(1)=='L' && FLASH_readByte(2)=='X' && FLASH_readByte(6)==':' && FLASH_readByte(9)==':')
@@ -617,6 +650,7 @@ void CheckFlashImage() {
     putch('E');
 #endif
 
+#ifndef USE_I2C_EEPROM
     //erase the first 32/64K block where flash image resided (atmega328 should be less than 31K, and atmega1284 can be up to 64K)
     if (imagesize+10<=32768) FLASH_command(SPIFLASH_BLOCKERASE_32K, 1);
     else FLASH_command(SPIFLASH_BLOCKERASE_64K, 1);
@@ -624,7 +658,10 @@ void CheckFlashImage() {
     SPI_transfer(0);
     SPI_transfer(0);
     FLASH_UNSELECT;
-    
+#else
+    EEPROM_invalidate();
+#endif
+
     //now trigger a watchdog reset
     watchdogConfig(WATCHDOG_16MS);  // short WDT timeout
     while (1); 		                  // and busy-loop so that WD causes a reset and app start
@@ -666,6 +703,20 @@ int main(void) {
   // Adaboot no-wait mod
   ch = MCUSR;
   MCUSR = 0;
+   
+#ifndef SOFT_UART
+#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__)
+UCSRA = _BV(U2X); //Double speed mode USART
+UCSRB = _BV(RXEN) | _BV(TXEN);  // enable Rx & Tx
+UCSRC = _BV(URSEL) | _BV(UCSZ1) | _BV(UCSZ0);  // config USART; 8N1
+UBRRL = (uint8_t)( (F_CPU + BAUD_RATE * 4L) / (BAUD_RATE * 8L) - 1 );
+#else
+UART_SRA = _BV(U2X0); //Double speed mode USART0
+UART_SRB = _BV(RXEN0) | _BV(TXEN0);
+UART_SRC = _BV(UCSZ00) | _BV(UCSZ01);
+UART_SRL = (uint8_t)( (F_CPU + BAUD_RATE * 4L) / (BAUD_RATE * 8L) - 1 );
+#endif
+#endif
     
 #ifdef DEBUG_ON  
     putch('S');
@@ -684,19 +735,6 @@ int main(void) {
 #if LED_START_FLASHES > 0
   // Set up Timer 1 for timeout counter
   TCCR1B = _BV(CS12) | _BV(CS10); // div 1024
-#endif
-#ifndef SOFT_UART
-#if defined(__AVR_ATmega8__) || defined (__AVR_ATmega32__)
-  UCSRA = _BV(U2X); //Double speed mode USART
-  UCSRB = _BV(RXEN) | _BV(TXEN);  // enable Rx & Tx
-  UCSRC = _BV(URSEL) | _BV(UCSZ1) | _BV(UCSZ0);  // config USART; 8N1
-  UBRRL = (uint8_t)( (F_CPU + BAUD_RATE * 4L) / (BAUD_RATE * 8L) - 1 );
-#else
-  UART_SRA = _BV(U2X0); //Double speed mode USART0
-  UART_SRB = _BV(RXEN0) | _BV(TXEN0);
-  UART_SRC = _BV(UCSZ00) | _BV(UCSZ01);
-  UART_SRL = (uint8_t)( (F_CPU + BAUD_RATE * 4L) / (BAUD_RATE * 8L) - 1 );
-#endif
 #endif
 
   // Set up watchdog to trigger after 500ms
