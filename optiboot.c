@@ -297,7 +297,7 @@ asm("  .section .version\n"
 #endif
 
 // uncomment to use I2C EEPROM instead of the SPI flash
-#define USE_I2C_EEPROM
+//#define USE_I2C_EEPROM
 
 /* set the UART baud rate defaults */
 #ifndef BAUD_RATE

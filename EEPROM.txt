@@ -9,3 +9,5 @@ and recompile the bootloader. Until the code is optimized (?), it won't fit on 1
 boot block as does the SPI version. So to use this make sure your fuses are set to
 the maximum boot block size of 2kB (1024W).
 
+USE_I2C_EEPROM could also be defined in the makefile. Target atmega328_e8 does that
+and is made for 8MHz Arduino pro mini with I2C EEPROM.
