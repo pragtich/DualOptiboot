@@ -615,9 +615,18 @@ atmega328_e8: TARGET = atmega328_e8
 atmega328_e8: MCU_TARGET = atmega328p
 atmega328_e8: CFLAGS += $(LED_START_FLASHES_CMD) -DUSE_I2C_EEPROM=1 -DBAUD_RATE=57600
 atmega328_e8: AVR_FREQ = 8000000L
-atmega328_e8: LDSECTIONS  = -Wl,--section-start=.text=0x7a00 -Wl,--section-start=.version=0x7ffe
+atmega328_e8: LDSECTIONS  = -Wl,--section-start=.text=0x7800 -Wl,--section-start=.version=0x7ffe
 atmega328_e8: $(PROGRAM)_atmega328_e8.hex
 atmega328_e8: $(PROGRAM)_atmega328_e8.lst
+
+# mega328 pro mini 16MHz with I2C EEPROM
+atmega328_e: TARGET = atmega328_e
+atmega328_e: MCU_TARGET = atmega328p
+atmega328_e: CFLAGS += $(LED_START_FLASHES_CMD) -DUSE_I2C_EEPROM=1 -DBAUD_RATE=57600
+atmega328_e: AVR_FREQ = 16000000L
+atmega328_e: LDSECTIONS  = -Wl,--section-start=.text=0x7800 -Wl,--section-start=.version=0x7ffe
+atmega328_e: $(PROGRAM)_atmega328_e.hex
+atmega328_e: $(PROGRAM)_atmega328_e.lst
 
 #---------------------------------------------------------------------------
 #
