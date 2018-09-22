@@ -18,7 +18,8 @@ make atmega328_e8
 
 # Connect to ISP
 
-avrdude  -C ~/.platformio/packages/tool-avrdude/avrdude.conf  -p atmega328p -c arduino -P /dev/ttyUSB0 -b 19200 -U flash:w:optiboot_atmega328p_e8.hex  -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m -U efuse:w:0xFD:m 
+# 1.8V brownout 2048 word bootloader
+avrdude  -C ~/.platformio/packages/tool-avrdude/avrdude.conf  -p atmega328p -c arduino -P /dev/ttyUSB0 -b 19200 -U flash:w:optiboot_atmega328p_e8.hex  -U hfuse:w:0xD8:m -U lfuse:w:0xFF:m -U efuse:w:0xFE:m 
 
 
 
