@@ -1,3 +1,30 @@
+Local changes to DualOptiboot
+============================
+
+- Uses Kristerw/kisse66's modifications to use an I2C EEPROM (make atmega328_e8)
+- Flash using [an ISP programmer](https://www.pragti.ch/computer%20stuff/2018/09/10/Uploading_bootloader_Pro_Mini/).
+
+Flashing
+========
+
+make sure `PATH` contains the compiler and tools, so when I want to use Platformio's tools:
+` export PATH=$PATH:~/.platformio/packages/toolchain-atmelavr/bin:~/.platformio/packages/tool-avrdude`
+
+Check out [Adafruit's tutorial on avrdude](http://www.ladyada.net/learn/avr/avrdude.html). Also useful is [Adafruit's explanation of using the ArduinoISP](https://learn.adafruit.com/arduino-tips-tricks-and-techniques/arduinoisp).
+
+
+```sh
+make atmega328_e8
+
+# Connect to ISP
+
+avrdude  -C ~/.platformio/packages/tool-avrdude/avrdude.conf  -p atmega328p -c arduino -P /dev/ttyUSB0 -b 19200 -U flash:w:optiboot_atmega328p_e8.hex  -U hfuse:w:0xDE:m -U lfuse:w:0xFF:m -U efuse:w:0xFD:m 
+
+
+
+```
+
+
 DualOptiboot
 ============
 
