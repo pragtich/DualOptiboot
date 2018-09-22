@@ -619,6 +619,17 @@ atmega328_e8: LDSECTIONS  = -Wl,--section-start=.text=0x7800 -Wl,--section-start
 atmega328_e8: $(PROGRAM)_atmega328_e8.hex
 atmega328_e8: $(PROGRAM)_atmega328_e8.lst
 
+atmega328_e8_isp: atmega328_e8
+atmega328_e8_isp: TARGET = atmega328_e8
+atmega328_e8_isp: MCU_TARGET = atmega328p
+# 512 byte boot, SPIEN
+atmega328_e8_isp: HFUSE ?= DE
+# Low power xtal (16MHz) 16KCK/14CK+65ms
+atmega328_e8_isp: LFUSE ?= FF
+# 2.7V brownout
+atmega328_e8_isp: EFUSE ?= FD
+atmega328_e8_isp: isp
+
 # mega328 pro mini 16MHz with I2C EEPROM
 atmega328_e: TARGET = atmega328_e
 atmega328_e: MCU_TARGET = atmega328p
