@@ -52,13 +52,75 @@ I am not sure what I did wrong, except that it seems that the bootloader might n
 
 TODO:
 
-- [ ] Test a real mysensors script
+- [x] Test a real mysensors script
+- [ ] Test FOTA on this script
 - [ ] Test the EEPROM FOTA stuff
 - [ ] Understand why I stuffed up for so long
 - [ ] Update to the newest Optiboot base
 - [ ] remake repository structure
 - [ ] Document experience
 
+
+# Test a real mysensors script
+
+avrdude  -C ~/.platformio/packages/tool-avrdude/avrdude.conf  -p atmega328p -c arduino -P /dev/ttyUSB0 -b 19200  -U hfuse:w:0xD8:m -U lfuse:w:0xFF:m -U efuse:w:0xFE:m -U flash:w:optiboot57k6.hex
+
+Edit platformio.ini to contain:
+
+upload_port = /dev/ttyUSB0
+upload_speed = 57600
+monitor_speed = 9600
+monitor_port = /dev/ttyUSB0
+
+pio run -t upload
+pio device monitor
+
+--- Miniterm on /dev/ttyUSB0  9600,8,N,1 ---
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---
+NodeManager v1.8-dev
+LIB V=2.3.1-alpha R=R E=- T=N A=A S=- B=-
+BATTERY I=201 P=30 T=38
+SIGNAL I=202 P=33 T=37
+SIGNAL I=300 P=33 T=37
+DOOR I=1 P=0 T=16
+RADIO...
+
+
+Works...
+
+# Make it really do a FOTA
+
+Add to the sketch:
+
+
+#define USE_I2C_EEPROM
+#define MY_OTA_FIRMWARE_FEATURE
+#define MY_OTA_USE_I2C_EEPROM 
+
+Needed to reduce size due to crash loop?
+
+Compile error:
+Compiling .pioenvs/pro8MHzatmega328/src/Deur02.ino.cpp.o
+In file included from lib/MySensors/drivers/I2CEeprom/I2CEeprom.cpp:31:0,
+from lib/MySensors/MySensors.h:135,
+from src/NodeManagerLibrary.h:146,
+from /home/pragtich/mysensors/Sensors/deur02/src/Deur02.ino:181:
+lib/MySensors/drivers/I2CEeprom/I2CEeprom.h:49:23: fatal error: extEEPROM.h: No such file or directory
+
+- [ ] TODO: make platformio find the right header file; It's there.
+- [ ] TODO: make the bootloader and my sketch work at the same baudrate
+
+pio lib install 804
+
+
+Boot loop again?!
+
+Reflash bootloader with ISP (disconnect radio) and try again; Reproducible
+
+Remove even more code from Node: Success!
+
+- [ ] TODO: Understand NodeManager size and reduce
+- [ ] TODO: Fix symlinks to cloned folders. I've got out-of-date copies everywhere...
 
 DualOptiboot
 ============
