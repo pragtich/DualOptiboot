@@ -475,7 +475,7 @@ void appStart(uint8_t rstFlags) __attribute__ ((naked));
 # define UART_UDR UDR3
 #endif
 
-#define DEBUG_ON    // uncomment to enable Serial debugging
+//#define DEBUG_ON    // uncomment to enable Serial debugging
 // (will output different characters depending on which path the bootloader takes)
 
 #ifdef USE_I2C_EEPROM

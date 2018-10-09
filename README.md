@@ -14,6 +14,13 @@ Check out [Adafruit's tutorial on avrdude](http://www.ladyada.net/learn/avr/avrd
 
 
 ```sh
+#.text start address depends on bootloader size (BOOTSZ)
+# 2048w/4096 byte: 0x3800x2=0x7000
+# 1024w/2048 byte: 0x3c00x2=0x7800
+# 512 w/1024 byte: 0x3e00x2=0x7c00
+
+
+
 make atmega328_e8
 
 # Connect to ISP

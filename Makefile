@@ -614,22 +614,22 @@ luminet_isp: isp
 atmega328_e8: TARGET = atmega328_e8
 atmega328_e8: MCU_TARGET = atmega328p
 #atmega328_e8: CFLAGS += $(LED_START_FLASHES_CMD) -DUSE_I2C_EEPROM=1 -DBAUD_RATE=57600 -DLED_START_FLASHES=5 -DLED=B5
-atmega328_e8: CFLAGS += $(LED_START_FLASHES_CMD) -DUSE_I2C_EEPROM=1 -DBAUD_RATE=57600 
+atmega328_e8: CFLAGS += $(LED_START_FLASHES_CMD) -DUSE_I2C_EEPROM=1 -DBAUD_RATE=57600 -DLED=B5
 atmega328_e8: AVR_FREQ = 8000000L
+#.text start address depends on bootloader size (BOOTSZ)
+# 2048w/4096 byte: 0x3800x2=0x7000
+# 1024w/2048 byte: 0x3c00x2=0x7800 <== currently without debug;  
+# 512 w/1024 byte: 0x3e00x2=0x7c00
+#
+# With 1.8V BOD and 1024w:
+# FF DA 06
 atmega328_e8: LDSECTIONS  = -Wl,--section-start=.text=0x7800 -Wl,--section-start=.version=0x7ffe
 atmega328_e8: $(PROGRAM)_atmega328_e8.hex
 atmega328_e8: $(PROGRAM)_atmega328_e8.lst
 
-atmega328_e8_isp: atmega328_e8
-atmega328_e8_isp: TARGET = atmega328_e8
-atmega328_e8_isp: MCU_TARGET = atmega328p
-# 512 byte boot, SPIEN
-atmega328_e8_isp: HFUSE ?= DE
-# Low power xtal (16MHz) 16KCK/14CK+65ms
-atmega328_e8_isp: LFUSE ?= FF
-# 2.7V brownout
-atmega328_e8_isp: EFUSE ?= FD
-atmega328_e8_isp: isp
+# avrdude  -C ~/.platformio/packages/tool-avrdude/avrdude.conf  -p atmega328p -c arduino -P /dev/ttyUSB0 -b 19200  -U hfuse:w:0xDA:m -U lfuse:w:0xFF:m -U efuse:w:0x06:m -U flash:w:optiboot_atmega328_e8.hex
+
+
 
 # mega328 pro mini 16MHz with I2C EEPROM
 atmega328_e: TARGET = atmega328_e
