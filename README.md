@@ -629,6 +629,442 @@ avr-nm -Crtd --size-sort bin/fw+dbg+ota.elf
 00000001 b timer0_fract
 00000001 B _address
 
+minix:deur02 pragtich$ avr-nm -Crtd --size-sort bin/fw-dbg-ota.elf 
+00001352 t global constructors keyed to 65535_0_Deur02.ino.cpp.o.2635
+00001062 T transportProcess()
+00000790 T stInitUpdate()
+00000590 t Sensor::loop(MyMessage*)
+00000414 T _sleep(unsigned long, bool, unsigned char, unsigned char, unsigned char, unsigned char)
+00000370 t loop
+00000368 T RFM69::interruptHandler()
+00000338 t setup
+00000304 T free
+00000298 T malloc
+00000274 T main
+00000266 T RFM69::sendFrame(unsigned char, void const*, unsigned char, bool, bool)
+00000238 T presentation()
+00000218 T ChildInt::sendValue(bool)
+00000216 T hwSleep(unsigned char, unsigned char, unsigned char, unsigned char, unsigned long)
+00000210 t before()
+00000198 T RFM69::sendACK(void const*, unsigned char)
+00000194 T RFM69::sendWithRetry(unsigned char, void const*, unsigned char, unsigned char, unsigned char)
+00000184 T Print::printNumber(unsigned long, unsigned char)
+00000172 T SensorInterrupt::onInterrupt()
+00000166 T hwPowerDown(unsigned char)
+00000162 T RFM69::setMode(unsigned char)
+00000158 T RFM69::send(unsigned char, void const*, unsigned char, bool)
+00000157 B Serial
+00000148 T __vector_16
+00000142 T HardwareSerial::write(unsigned char)
+00000130 T hwInternalSleep(unsigned long)
+00000120 T pinMode
+00000118 t presentNode()
+00000114 T NodeManager::_onInterrupt_2()
+00000114 T NodeManager::_onInterrupt_1()
+00000112 T transportRouteMessage(MyMessage&)
+00000108 T wait(unsigned long, unsigned char, unsigned char) [clone .constprop.9]
+00000106 T MyMessage::set(char const*)
+00000102 T SensorInterrupt::onReceive(MyMessage*)
+00000102 t transportSendWrite(unsigned char, MyMessage&)
+00000100 T __vector_18
+00000098 T RFM69::receiveBegin()
+00000096 T digitalWrite
+00000092 t stUplinkUpdate()
+00000090 T ChildInt::print(Print&)
+00000088 T transportSwitchSM(transportState_t&)
+00000086 T Print::write(unsigned char const*, unsigned int)
+00000084 t RFM69::readReg(unsigned char)
+00000084 T NodeManager::getSensorWithChild(int)
+00000084 T NodeManager::sleepOrWait(long)
+00000082 T _callbackTransportReady()
+00000082 t turnOffPWM
+00000082 T digitalRead
+00000080 T RFM69::writeReg(unsigned char, unsigned char)
+00000080 T SensorInterrupt::onSetup()
+00000080 T HardwareSerial::begin(unsigned long, unsigned char) [clone .constprop.40]
+00000080 T wait(unsigned long)
+00000078 T __vector_2
+00000078 T __vector_1
+00000078 T atol
+00000076 T __vector_19
+00000074 T micros
+00000070 t RFM69::canSend()
+00000069 B node
+00000068 T RFM69::receiveDone()
+00000068 T HardwareSerial::flush()
+00000068 T receive(MyMessage const&)
+00000068 t stParentUpdate()
+00000068 T __udivmodsi4
+00000066 t HardwareSerial::_tx_udr_empty_irq()
+00000064 T RFM69::setHighPower(bool)
+00000064 t stFailureUpdate()
+00000062 T transportAssignNodeID(unsigned char)
+00000062 t stIDTransition()
+00000061 B RFM69::DATA
+00000060 T Sensor::getChild(int)
+00000060 T atoi
+00000056 t stFailureTransition()
+00000052 T RFM69::setHighPowerRegs(bool)
+00000052 T RFM69::setPowerLevel(unsigned char)
+00000052 T NodeManager::_sleepBetweenSend()
+00000052 t stIDUpdate()
+00000050 T build(MyMessage&, unsigned char, unsigned char, unsigned char, unsigned char, bool) [clone .constprop.48]
+00000050 t stParentTransition()
+00000050 T attachInterrupt
+00000048 T present(unsigned char, unsigned char, char const*, bool)
+00000046 t _GLOBAL__sub_D__Z6hwInitv
+00000044 T RFM69::select()
+00000044 t stUplinkTransition()
+00000044 T stInitTransition()
+00000042 T MyMessage::clear()
+00000040 T HardwareSerial::read()
+00000040 T __udivmodhi4
+00000040 B door
+00000040 T __divmodhi4
+00000038 T MyMessage::getByte() const [clone .constprop.30]
+00000038 T transportTimeInState()
+00000036 t stReadyTransition()
+00000036 T eeprom_update_byte
+00000036 T detachInterrupt
+00000033 B _msgTmp
+00000033 B _msg
+00000032 D vtable for RFM69
+00000032 t wakeUp2()
+00000032 t wakeUp1()
+00000032 T eeprom_update_block
+00000032 T eeprom_read_block
+00000030 T MyMessage::set(unsigned long)
+00000030 T RFM69::unselect()
+00000030 T HardwareSerial::availableForWrite()
+00000030 T __umulhisi3
+00000030 T strncpy
+00000028 T HardwareSerial::peek()
+00000024 T MyMessage::set(unsigned char)
+00000024 T HardwareSerial::available()
+00000024 T millis
+00000024 T attachInterrupt.part.0.lto_priv.53
+00000022 t RFM69::isr0()
+00000022 T __muluhisi3
+00000022 T __do_global_dtors
+00000022 T __do_global_ctors
+00000022 T __do_copy_data
+00000020 t Serial0_available()
+00000020 T serialEventRun()
+00000020 t stReadyUpdate()
+00000020 T __vector_6
+00000020 t digital_pin_to_timer_PGM
+00000020 T digital_pin_to_port_PGM
+00000020 T digital_pin_to_bit_mask_PGM
+00000018 d vtable for HardwareSerial
+00000018 T memcpy
+00000016 T __do_clear_bss
+00000015 B _ZL12_transportSM.lto_priv.55
+00000014 D vtable for Sensor
+00000014 D vtable for SensorInterrupt
+00000014 D vtable for SensorDoor
+00000014 t SPIClass::transfer(unsigned char)
+00000014 T transportSendRoute(MyMessage&)
+00000012 T ChildInt::reset()
+00000012 T __tablejump2__
+00000012 B _radio
+00000010 d vtable for ChildInt
+00000010 d vtable for Child
+00000010 t port_to_output_PGM
+00000010 T port_to_mode_PGM
+00000010 t port_to_input_PGM
+00000010 T abort
+00000006 T Print::availableForWrite()
+00000004 B NodeManager::_last_interrupt_2
+00000004 B NodeManager::_last_interrupt_1
+00000004 d stFailure
+00000004 d stUplink
+00000004 d stParent
+00000004 d stReady
+00000004 D _ZL6stInit.lto_priv.56
+00000004 d stID
+00000004 B _ZL16_transportConfig.lto_priv.51
+00000004 B timer0_overflow_count
+00000004 B timer0_millis
+00000004 D intFunc.lto_priv.52
+00000004 T __cxa_pure_virtual
+00000002 T Sensor::onReceive(MyMessage*)
+00000002 T Sensor::onBefore()
+00000002 T Sensor::onSetup()
+00000002 T Sensor::onLoop(Child*)
+00000002 T Sensor::onInterrupt()
+00000002 b RFM69::RSSI
+00000002 T RFM69::interruptHook(unsigned char)
+00000002 b RFM69::selfPointer
+00000002 T Print::flush()
+00000002 T Child::sendValue(bool)
+00000002 T Child::reset()
+00000002 T Child::print(Print&)
+00000002 T SensorInterrupt::onLoop(Child*)
+00000002 B NodeManager::_last_interrupt_value
+00000002 D NodeManager::_last_interrupt_pin
+00000002 B _ZL11_coreConfig.lto_priv.54
+00000002 B _transportReady_cb
+00000002 t nothing
+00000002 D __malloc_margin
+00000002 D __malloc_heap_start
+00000002 D __malloc_heap_end
+00000002 B __flp
+00000002 B __brkval
+00000001 b SPIClass::initialized
+00000001 B RFM69::TARGETID
+00000001 b RFM69::SENDERID
+00000001 B RFM69::DATALEN
+00000001 B RFM69::_mode
+00000001 B RFM69::ACK_REQUESTED
+00000001 b RFM69::ACK_RECEIVED
+00000001 b RFM69::PAYLOADLEN
+00000001 D _ZL15_transportToken.lto_priv.57
+00000001 D _wokeUpByInterrupt
+00000001 d _wakeUp2Interrupt
+00000001 d _wakeUp1Interrupt
+00000001 b timer0_fract
+00000001 B _address
+
+minix:deur02 pragtich$ avr-nm -Crtd --size-sort bin/fw-dbg+ota.elf 
+00002418 T transportProcess()
+00001468 t global constructors keyed to 65535_0_Deur02.ino.cpp.o.2956
+00000790 T stInitUpdate()
+00000604 T __vector_24
+00000590 t Sensor::loop(MyMessage*)
+00000502 T _sleep(unsigned long, bool, unsigned char, unsigned char, unsigned char, unsigned char)
+00000452 T extEEPROM::write(unsigned long, unsigned char*, unsigned int) [clone .part.1] [clone .constprop.42]
+00000370 T loop
+00000368 T RFM69::interruptHandler()
+00000338 T setup
+00000304 T free
+00000298 T malloc
+00000290 T main
+00000266 T RFM69::sendFrame(unsigned char, void const*, unsigned char, bool, bool)
+00000238 T presentation()
+00000218 T ChildInt::sendValue(bool)
+00000216 T hwSleep(unsigned char, unsigned char, unsigned char, unsigned char, unsigned long)
+00000210 T before()
+00000198 T RFM69::sendACK(void const*, unsigned char)
+00000194 T RFM69::sendWithRetry(unsigned char, void const*, unsigned char, unsigned char, unsigned char)
+00000184 T TwoWire::endTransmission(unsigned char)
+00000184 T Print::printNumber(unsigned long, unsigned char)
+00000184 T presentNode()
+00000172 T SensorInterrupt::onInterrupt()
+00000166 T hwPowerDown(unsigned char)
+00000162 T RFM69::setMode(unsigned char)
+00000158 T RFM69::send(unsigned char, void const*, unsigned char, bool)
+00000157 B Serial
+00000148 T __vector_16
+00000142 T HardwareSerial::write(unsigned char)
+00000130 T hwInternalSleep(unsigned long)
+00000120 T pinMode
+00000114 T NodeManager::_onInterrupt_2()
+00000114 T NodeManager::_onInterrupt_1()
+00000112 T transportRouteMessage(MyMessage&)
+00000108 T wait(unsigned long, unsigned char, unsigned char) [clone .constprop.10]
+00000106 T MyMessage::set(char const*)
+00000102 T SensorInterrupt::onReceive(MyMessage*)
+00000102 t transportSendWrite(unsigned char, MyMessage&)
+00000100 T __vector_18
+00000098 T RFM69::receiveBegin()
+00000096 T TwoWire::write(unsigned char const*, unsigned int)
+00000096 T digitalWrite
+00000094 T TwoWire::write(unsigned char)
+00000092 t stUplinkUpdate()
+00000090 T ChildInt::print(Print&)
+00000088 T transportSwitchSM(transportState_t&)
+00000086 T Print::write(unsigned char const*, unsigned int)
+00000084 t RFM69::readReg(unsigned char)
+00000084 T NodeManager::getSensorWithChild(int)
+00000084 T NodeManager::sleepOrWait(long)
+00000082 t _callbackTransportReady()
+00000082 t turnOffPWM
+00000082 T digitalRead
+00000080 T RFM69::writeReg(unsigned char, unsigned char)
+00000080 T SensorInterrupt::onSetup()
+00000080 T HardwareSerial::begin(unsigned long, unsigned char) [clone .constprop.63]
+00000080 T wait(unsigned long)
+00000080 t twi_transmit
+00000078 T __vector_2
+00000078 T __vector_1
+00000078 T atol
+00000076 T __vector_19
+00000074 T micros
+00000070 t RFM69::canSend()
+00000069 B node
+00000068 T RFM69::receiveDone()
+00000068 T HardwareSerial::flush()
+00000068 T receive(MyMessage const&)
+00000068 t stParentUpdate()
+00000068 T __udivmodsi4
+00000066 t HardwareSerial::_tx_udr_empty_irq()
+00000064 T I2CEeprom::busy() [clone .constprop.45]
+00000064 T RFM69::setHighPower(bool)
+00000064 t stFailureUpdate()
+00000062 T transportAssignNodeID(unsigned char)
+00000062 t stIDTransition()
+00000061 B RFM69::DATA
+00000060 T Sensor::getChild(int)
+00000060 T atoi
+00000056 t stFailureTransition()
+00000052 T RFM69::setHighPowerRegs(bool)
+00000052 T RFM69::setPowerLevel(unsigned char)
+00000052 T NodeManager::_sleepBetweenSend()
+00000052 t stIDUpdate()
+00000050 T build(MyMessage&, unsigned char, unsigned char, unsigned char, unsigned char, bool) [clone .constprop.71]
+00000050 t stParentTransition()
+00000050 T attachInterrupt
+00000048 T present(unsigned char, unsigned char, char const*, bool)
+00000046 t _GLOBAL__sub_D__Z6hwInitv
+00000044 T RFM69::select()
+00000044 t stUplinkTransition()
+00000044 T stInitTransition()
+00000042 T MyMessage::clear()
+00000040 T TwoWire::read()
+00000040 T HardwareSerial::read()
+00000040 T __udivmodhi4
+00000040 B door
+00000040 T __divmodhi4
+00000038 T MyMessage::getByte() const [clone .constprop.32]
+00000038 T transportTimeInState()
+00000036 t stReadyTransition()
+00000036 T eeprom_update_byte
+00000036 T detachInterrupt
+00000033 B _msgTmp
+00000033 B _msg
+00000032 D vtable for RFM69
+00000032 b TwoWire::txBuffer
+00000032 B TwoWire::rxBuffer
+00000032 t wakeUp2()
+00000032 t wakeUp1()
+00000032 b twi_txBuffer
+00000032 b twi_rxBuffer
+00000032 B twi_masterBuffer.lto_priv.89
+00000032 T eeprom_update_block
+00000032 T eeprom_read_block
+00000030 T MyMessage::set(unsigned long)
+00000030 T TwoWire::peek()
+00000030 T RFM69::unselect()
+00000030 T HardwareSerial::availableForWrite()
+00000030 T __umulhisi3
+00000030 T strncpy
+00000028 T HardwareSerial::peek()
+00000026 T memcmp
+00000024 T MyMessage::set(unsigned char)
+00000024 T HardwareSerial::available()
+00000024 T millis
+00000024 T attachInterrupt.part.0.lto_priv.77
+00000022 t RFM69::isr0()
+00000022 T __muluhisi3
+00000022 T __do_global_dtors
+00000022 T __do_global_ctors
+00000022 T __do_copy_data
+00000020 t Serial0_available()
+00000020 T serialEventRun()
+00000020 t stReadyUpdate()
+00000020 T __vector_6
+00000020 t twi_stop
+00000020 t digital_pin_to_timer_PGM
+00000020 T digital_pin_to_port_PGM
+00000020 T digital_pin_to_bit_mask_PGM
+00000018 d vtable for TwoWire
+00000018 d vtable for HardwareSerial
+00000018 T memcpy
+00000016 T TwoWire::available()
+00000016 B _flash
+00000016 T __do_clear_bss
+00000015 B _ZL12_transportSM.lto_priv.79
+00000014 D vtable for Sensor
+00000014 D vtable for SensorInterrupt
+00000014 D vtable for SensorDoor
+00000014 t SPIClass::transfer(unsigned char)
+00000014 T transportSendRoute(MyMessage&)
+00000012 T ChildInt::reset()
+00000012 B Wire
+00000012 T __tablejump2__
+00000012 B _radio
+00000010 d vtable for ChildInt
+00000010 d vtable for Child
+00000010 t port_to_output_PGM
+00000010 T port_to_mode_PGM
+00000010 t port_to_input_PGM
+00000010 T abort
+00000008 B _ZL19_nodeFirmwareConfig.lto_priv.81
+00000006 T Print::availableForWrite()
+00000004 B NodeManager::_last_interrupt_2
+00000004 B NodeManager::_last_interrupt_1
+00000004 d stFailure
+00000004 d stUplink
+00000004 d stParent
+00000004 d stReady
+00000004 D _ZL6stInit.lto_priv.90
+00000004 d stID
+00000004 b _firmwareLastRequest
+00000004 B _ZL16_transportConfig.lto_priv.75
+00000004 B timer0_overflow_count
+00000004 B timer0_millis
+00000004 D intFunc.lto_priv.76
+00000004 T __cxa_pure_virtual
+00000002 T TwoWire::flush()
+00000002 T Sensor::onReceive(MyMessage*)
+00000002 T Sensor::onBefore()
+00000002 T Sensor::onSetup()
+00000002 T Sensor::onLoop(Child*)
+00000002 T Sensor::onInterrupt()
+00000002 b RFM69::RSSI
+00000002 T RFM69::interruptHook(unsigned char)
+00000002 b RFM69::selfPointer
+00000002 T Print::flush()
+00000002 T Child::sendValue(bool)
+00000002 T Child::reset()
+00000002 T Child::print(Print&)
+00000002 T SensorInterrupt::onLoop(Child*)
+00000002 B NodeManager::_last_interrupt_value
+00000002 D NodeManager::_last_interrupt_pin
+00000002 b _firmwareBlock
+00000002 B _ZL11_coreConfig.lto_priv.78
+00000002 b twi_onSlaveTransmit
+00000002 b twi_onSlaveReceive
+00000002 B _transportReady_cb
+00000002 t nothing
+00000002 D __malloc_margin
+00000002 D __malloc_heap_start
+00000002 D __malloc_heap_end
+00000002 B __flp
+00000002 B __brkval
+00000001 b SPIClass::initialized
+00000001 B TwoWire::txAddress
+00000001 B TwoWire::txBufferLength
+00000001 B TwoWire::rxBufferLength
+00000001 B TwoWire::txBufferIndex
+00000001 B TwoWire::rxBufferIndex
+00000001 B TwoWire::transmitting
+00000001 B RFM69::TARGETID
+00000001 b RFM69::SENDERID
+00000001 B RFM69::DATALEN
+00000001 B RFM69::_mode
+00000001 B RFM69::ACK_REQUESTED
+00000001 b RFM69::ACK_RECEIVED
+00000001 b RFM69::PAYLOADLEN
+00000001 B _ZL22_firmwareUpdateOngoing.lto_priv.80
+00000001 D _ZL15_transportToken.lto_priv.91
+00000001 b _firmwareRetry
+00000001 D _wokeUpByInterrupt
+00000001 d _wakeUp2Interrupt
+00000001 d _wakeUp1Interrupt
+00000001 b twi_txBufferLength
+00000001 b twi_txBufferIndex
+00000001 B twi_state.lto_priv.82
+00000001 B twi_slarw.lto_priv.87
+00000001 B twi_sendStop.lto_priv.83
+00000001 b twi_rxBufferIndex
+00000001 B twi_masterBufferLength.lto_priv.86
+00000001 B twi_masterBufferIndex.lto_priv.85
+00000001 B twi_inRepStart.lto_priv.88
+00000001 B twi_error.lto_priv.84
+00000001 b timer0_fract
+00000001 B _address
+
 
 DualOptiboot
 ============
