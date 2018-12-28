@@ -157,6 +157,7 @@ Let's try enabling/disabling some stuff:
 
 ## debug disabled
 
+```
 Dependency Graph
 |-- <SD> 1.1.1
 |   |-- <SPI> 1.0
@@ -186,9 +187,11 @@ Memory Usage -> http://bit.ly/pio-memory-usage
 DATA:    [====      ]  43.8% (used 896 bytes from 2048 bytes)
 PROGRAM: [======    ]  59.3% (used 18208 bytes from 30720 bytes)
 
+```
 
 ## OTA and I2C disabled
 
+```
 Dependency Graph
 |-- <SPI> 1.0
 |-- <SD> 1.1.1
@@ -213,6 +216,7 @@ Building .pioenvs/pro8MHzatmega328/firmware.hex
 Memory Usage -> http://bit.ly/pio-memory-usage
 DATA:    [====      ]  37.1% (used 759 bytes from 2048 bytes)
 PROGRAM: [========  ]  81.5% (used 25032 bytes from 30720 bytes)
+```
 
 Why is Wire still a dependency?? And WiFi? And SoftwareSerial? And Servo?
 
