@@ -220,8 +220,11 @@ To be checked: are they actually linked in?
 
 ## Finer comparison
 
+```
 avr-nm -Crtd --size-sort bin/fw+dbg+ota.elf
+```
 
+```
 00002980 T transportProcess()
 00001468 t global constructors keyed to 65535_0_Deur02.ino.cpp.o.3111
 00000932 T vfprintf
@@ -1071,7 +1074,7 @@ minix:deur02 pragtich$ avr-nm -Crtd --size-sort bin/fw-dbg+ota.elf
 00000001 B twi_error.lto_priv.84
 00000001 b timer0_fract
 00000001 B _address
-
+```
 
 DualOptiboot
 ============
