@@ -834,8 +834,11 @@ minix:deur02 pragtich$ avr-nm -Crtd --size-sort bin/fw-dbg-ota.elf
 00000001 d _wakeUp1Interrupt
 00000001 b timer0_fract
 00000001 B _address
-
+```
+```
 minix:deur02 pragtich$ avr-nm -Crtd --size-sort bin/fw-dbg+ota.elf 
+```
+```
 00002418 T transportProcess()
 00001468 t global constructors keyed to 65535_0_Deur02.ino.cpp.o.2956
 00000790 T stInitUpdate()
